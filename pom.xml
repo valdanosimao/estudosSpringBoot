@@ -8,11 +8,11 @@
 		<version>2.6.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.curso</groupId>
-	<artifactId>springBoot</artifactId>
+	<groupId>com.api</groupId>
+	<artifactId>employee</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springBoot</name>
-	<description>Curso  Desenvolvimento Web com Spring-Boot, MVC, JPA, Thymeleaf e Heroku.</description>
+	<name>employee</name>
+	<description> Curso  Desenvolvimento Web com Spring-Boot, MVC, JPA, Thymeleaf e Heroku.</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -56,13 +56,12 @@
 
 	<build>
 		<plugins>
-				
+		
 			<plugin>         			
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<version>1.18.22</version>						
 			</plugin>
-			
 		
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

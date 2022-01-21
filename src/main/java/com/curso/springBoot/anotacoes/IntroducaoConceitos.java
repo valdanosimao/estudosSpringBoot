@@ -187,17 +187,171 @@ public class IntroducaoConceitos {
 	 *  
 	 *  OBJETOS DE RESPOSTA DO SPRING MVC!
 	 *  
-	 *  MODELMAP
+	 *  MODELMAP  
 	 *  Objeto Usado para enviar dados a página como resposta de uma solicitação.
-	 *  Trabalha como uma resposta do tipo forward
+	 *  Trabalha como uma resposta do tipo forward, o modelmap possui alguns métodos
+	 *  entre ele o método addAttribute
+	 *  Exemplo:
+	 *  
+	 *  @Controller
+	 *  @RequestMapping("/computadores")
+	 *  public class computadorController {
+	 *  
+	 *  @Autowired
+	 *  private ComputadorDao dao;
+	 *  
+	 *  @GetMapping("/listagem")
+	 *  public String getComputadores(ModelMap model) {
+	 *  	List<Computador> computadores = dao.findAll();
+	 *  	model.addAttribute("computadores" , computadores);
+	 *  	return "lista"; 
+	 *  
+	 *  MODELANDVIEW
+	 *  Outro objeto usado para enviar dados a página como resposta de uma solicitação
+	 *  ele é bem similar ao ModelMap, porém ele tem como característica, ser utilizado
+	 *  como retorno de um método, como tbm vc pode inserir a página de resposta como
+	 *  assinatura do método construtor que vc vai utilizar para instância do ModelAndView
+	 *  Exemplo:
+	 *  
+	 *  @Controller
+	 *  @RequestMapping("/computadores")
+	 *  public class computadorController {
+	 *  }
+	 *  @Autowired
+	 *  private ComputadorDao dao;
+	 *  
+	 *  @GetMapping("/listagem")
+	 *  public ModelAndView getComputadores () {
+	 *  	List<Computador> computadores = dao.findAll();
+	 *  	ModelAndView model = new ModelAndView("lista")
+	 *  	model.addObject("computadores" , computadores);
+	 *  	return model; 
+	 *  
+	 *  Os Objetos ModelAndView e ModelMap tem como caracteristica trabalharem juntos,
+	 *  Adicionamos parâmetros de resposta no objeto ModelMap e retornamos um ModelAndView
+	 *  Exemplo
+	 *  
+	 *  @Controller
+	 *  @RequestMapping("/computadores")
+	 *  public class computadorController {
+	 *  }
+	 *  @Autowired
+	 *  private ComputadorDao dao;
+	 *  
+	 *  @GetMapping("/listagem")
+	 *  public ModelAndView getComputadores (ModelMap model) {
+	 *  	List<Computador> computadores = dao.findAll();
+	 *  	model.addAttribute("computadores" , computadores);
+	 *  	return new ModelAndView("lista", model);
+	 *  	
+	 *  	}
+	 *  }
+	 *  
+	 *  REDIRECT
+	 *  Redirect é uma operação usada para redirecionar a resposta de uma solicitação
+	 *  a outra solicitação.
+	 *  Tanto o ModelMap quanto o ModelAndView nós trabalhamos para resposta forword
+	 *  são aquelas resposta que simplismente vão abrir uma página
+	 *  Exemplo:
+	 *  
+	 *  @Controller
+	 *  @RequestMapping("/computadores")
+	 *  public class computadorController {
+	 *  }
+	 *  @Autowired
+	 *  private ComputadorDao dao;
+	 *  
+	 *  @GetMapping("/listagem")
+	 *  public ModelAndView getComputadores (ModelMap model) {
+	 *  	List<Computador> computadores = dao.findAll();
+	 *  	model.addAttribute("computadores" , computadores);
+	 *  	return new ModelAndView("lista", model);
+	 *  }	
+	 *  @PostMapping("/save")
+	 *  public String addComputador(Computador computador) {
+	 *  	dao.save(computador);
+	 *  	return "redirect:/computadores/listagem"
+	 *    }
+	 *  }  
+	 *  
+	 *  Redirect com uma msg depois que redireciona:
+	 *  Exemplo
+	 *  
+	 *    @Controller
+	 *  @RequestMapping("/computadores")
+	 *  public class computadorController {
+	 *  
+	 *  @Autowired
+	 *  private ComputadorDao dao;
+	 *  
+	 *  @GetMapping("/listagem")
+	 *  public ModelAndView getComputadores (ModelMap model) {
+	 *  	List<Computador> computadores = dao.findAll();
+	 *  	model.addAttribute("computadores" , computadores);
+	 *  	return new ModelAndView("lista", model);
+	 *   }
+	 *   @PostMapping("/save")
+	 *   public String addComputador(Computador computador, RedirectAttributes attrib) {
+	 *   	dao.save(computador);
+	 *   	attrib.addFlashAttribute("mensagem", "Computador inserido com sucesso");
+	 *   	return "redirect:/computadores/listagem"
+	 * }
 	 * 
 	 * 
+	 * SPRING BOOT
+	 * No Spring acabamos criando classes de configuração, por exmplo para trabalhar com banco de dados
+	 * criamos uma classe de configuração JDBC.
+	 *  
+	 * O Spring Boot é um projeto que chegou para facilitar o processo de configuração e publicação
+	 * de nossas aplicações web, a intenção é ter o projeto rodando o mais rápido possível e sem
+	 * complicação. Ele consegue isso favorecendo a convenção sobre a configuração. 
+	 * Com os módulos informados o Spring-Boot vai reconhecê-los e fornecer uma configuração
+	 * inicial. Basta que você dia para ele quais módulos deseja utilizar:
+	 * Web, Template, Persistência, Segurança etc.
+	 * 
+	 * Primeiro nos temos um modulo com a tag PARENT, é nela que informamos 
+	 * a versão do Spring Boot que está utilizando, é importante pq cada versão
+	 * do Spring boot faz referencia a versão do Framework, cada versão do SB
+	 * vai conter uma lista de dependencias, depois que vc passa o PARENT
+	 * vc passa os módulos de depedencias 
+	 * 
+	 * <parent>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-parent</artifactId>
+			<version>2.6.2</version>   
+			<relativePath/> <!-- lookup parent from repository -->
+	   </parent>
 	 * 
 	 * 
+	 * <dependencies>
 	 * 
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+			</dependency>
+		
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+			
+	 * </dependencies>
 	 * 
+	 * 	O Spring tem várias dependencias Starts, que já trás a bllibliotecas internas.
 	 * 
+	 * Os plugins são importante para o Spring, por exemplo o Spring Maven
 	 * 
+	 * <build>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+	   </build>
+	 * 
+	 * quando formos gerar o artefato final da nossa aplicação, ele vai gerar um
+	 * artefato .jar executavel
 	 * 
 	 * 
 	 * 
