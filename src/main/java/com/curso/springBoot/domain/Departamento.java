@@ -15,8 +15,12 @@ public class Departamento extends AbstractEntity<Long> {
 	@Column(name = "nome", nullable = false, unique = true, length = 60)
 	public String nome;
 	
-	@OneToMany(mappedBy = "departamento")
-	private List<Cargo> cargos;
+	@OneToMany(mappedBy = "departamento") //Muitos para um, muitos cargos para um departamento //sempe se ler da direita para esquerda
+	private List<Cargo> cargos;			  //O MAPPEDBY, ESTE ATRIBUTO É NECESSÁRIO PQ ESSE RELACIONAMENTO É BI-DIRECIONAL ENTRE DEPARTAMENTO
+										  //E QUANDO TEMOS UM RELACIONAMENTO BI-DIRECIONAL, TEMOS QUE DEFINIR QUAL O LADO FRACO, E O LADO FORTE
+										  //DA RELAÇÃO, O LADO FORTE É AQUELE QUE CONTEM A CHAVE ESTRANGEIRA, NO CASO CARGOS ENTÃO O 				
+										  //MEPPEDBY SERVE PARA VC DIZER QUAL O ATRIBUTO QUE ESTÁ FAZENDO PARTE DO LADO FORTE DA RELAÇÃO
+	                                      //O ATRIBUTO ENTÃO É O DEPARTAMENTO, LÁ NA CLASSE CARGO
 	
 	
 	public String getNome() {

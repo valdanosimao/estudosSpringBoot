@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @SuppressWarnings("serial")
-@MappedSuperclass
+@MappedSuperclass //dizer a jpa que é uma super classe das identidades
 public abstract class AbstractEntity <ID extends Serializable> implements Serializable {
 		
 		@Id
@@ -18,9 +18,7 @@ public abstract class AbstractEntity <ID extends Serializable> implements Serial
 
 		public ID getId() {
 			return id;
-		}
-		
-		
+		}		
 
 		public void setId(ID id) {
 			this.id = id;
