@@ -45,8 +45,8 @@ public abstract class AbstractEntity <ID extends Serializable> implements Serial
 		@Override
 		public String toString() {
 			return "id=" + id;
-		}
 		
 		
+}
 		
 }

@@ -53,7 +53,7 @@ public class Funcionario extends AbstractEntity<Long>{
 	}
 	public BigDecimal getSalario() {
 		return salario;
-	}
+	} 
 	public void setSalario(BigDecimal salario) {
 		this.salario = salario;
 	}
